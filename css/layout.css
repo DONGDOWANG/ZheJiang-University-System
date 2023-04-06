@@ -1,0 +1,148 @@
+@charset "utf-8";
+.bg-fff{
+    background-color: #fff;
+}
+.sch-logo{
+    display: inline-block;
+    width: 170px;
+    height: 100%;
+    background: url('../images/school-logo.png') no-repeat;
+    background-position: center center;
+    vertical-align: middle;
+}
+.model-page{
+    font-family: AdobeHeitiStd-Regular;
+    font-size: 18px;
+    color: #283855;
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 15px;
+    margin-left: 10px;
+    border-left: 1px solid #d2d2d2;
+}
+.nav-header-right{
+    height: 100%;
+    float: right;
+    margin-right: 20px;
+}
+.right-info{
+    /* padding: 10px 0; */
+}
+.right-info .dropdown{
+    display: inline-block;
+    color: rgb(152,156,158);
+    vertical-align: middle;
+    font-family: MicrosoftYaHei;
+    font-size: 13px;
+    padding: 5px 0px;
+}
+.right-info .filter-option{
+    padding-right: 0;
+}
+.right-info .btn,
+.right-info .btn:hover,
+.right-info .btn:focus{
+    outline: none !important;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    background-color: #fff !important;
+}
+.right-info .dropdown-menu li a{
+    font-family: MicrosoftYaHei;
+	font-size: 13px;
+    color: #909597;
+    padding-left: 22px;
+    background:url('../images/icon/role-icon.png') no-repeat;
+    background-position: 5px center;
+}
+.right-info .dropdown-menu>.active>a,
+.right-info .dropdown-menu>.active>a:focus,
+.right-info .dropdown-menu>.active>a:hover{
+    color: #404040;
+    background-color: #fff !important;
+}
+.right-info .dropdown-menu>.active>a{
+    background: url('../images/icon/role-active-icon.png') no-repeat;
+    background-position: 5px center;
+}
+.right-info .bs-caret{
+    display: none;
+}
+.right-info .dropdown .dropdown-toggle{
+    padding-right: 15px;
+    background: url('../images/icon/header-icon2.png') no-repeat;
+    background-position: 90% center;
+    border: none;
+}
+
+.right-info .exit{
+    display: inline-block;
+    padding: 5px 0 5px 30px;
+    font-family: MicrosoftYaHei;
+	font-size: 13px;
+    color: rgb(152,156,158);
+    vertical-align: middle;
+    border-left: 1px solid #d2d2d2;
+    background: url('../images/icon/header-icon3.png') no-repeat;
+    background-position: 10px center;
+    cursor: pointer;
+}
+.sidebar-menu{
+    width: 160px;
+    background-color: #262c50;
+}
+
+.item-col-chart-box {
+    position: relative;
+    background-color: #ffffff;
+    /* padding: 20px; */
+    /* padding: 0 20px 20px 20px; */
+    border-radius: 4px 4px 0 0 ;
+    border: 1px solid #DDDDDD;
+    padding-bottom: 10px;
+}
+.echarts-title{
+    border-bottom: 1px dashed #ccc;
+    /* margin: -9px -20px 0; */
+    background: #E4EAF6;
+    /* margin: 0px -20px 0px -20px; */
+    padding: 0px 20px;
+}
+.title-chart {
+    /* font-size: 14px; */
+    padding-left: 10px;
+    font-weight: bold;
+    color: #333;
+    height: 32px;
+    height: 40px;
+    line-height: 42px;
+    color: #173887;
+    font-size: 16px;
+}
+.title-chart::before {
+    content: "";
+    width: 2px;
+    top: 14px;
+    height: 14px;
+    left: 20px;
+    background-color: #173887;
+    position: absolute;
+}
+.table-aciton-text{
+    font-size: 14px;
+    color: #5586F8;
+}
+.table-aciton-text+.table-aciton-text{
+    margin-left: 15px;
+}
+.echarts-solid-title{
+    border-bottom: 1px solid #ccc;
+    margin: -9px -20px 0;
+}
+.echarts-solid-title .text {
+    font-size: 14px;
+    padding-left: 20px;
+    font-weight: 400;
+    color: #333;
+    height: 32px;
+}

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="zh-CN">
+    <meta charset="utf-8">
+    <!-- 删除默认的苹果工具栏和菜单栏 ： 即启用 WebApp 全屏模式  -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- 忽略数字自动识别为电话号码 ,忽略识别邮箱 -->
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="pragma" content="no-cache">
+    <title>浙江中医药大学</title>
+    <link rel="stylesheet" href="./core/iview/4.5.0/styles/iview.min.css">
+    <link rel="stylesheet" href="./core/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./core/bootstrap-select/1.13.10/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="./css/bh-iview.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/layout.css">
+    <link rel="stylesheet" href="./css/modules/subject.css">
+
+
+</head>
+
+<body>
+    <div id="app" class="wrapper"   >
+        <!--top-nav-wrap start-->
+        <div class="top-nav-wrap bg-fff">
+            <a href="" class="sch-logo">
+            </a>
+            <span class="model-page">浙江中医药大学学科管理系统</span>
+            <div class="nav-header-right">
+                <div class="right-info">
+                    <div class="dropdown">
+                        <img src="./images/icon/header-icon1.png" alt="">
+                        <select class="  selectpicker" data-width="200px">
+                            <option value="1">梁老师【学科办管理员】</option>
+                            <option value="2">王老师【一级学科秘书】</option>
+                            <option value="3">张老师【二级学科秘书】</option>
+                        </select>
+                    </div>
+                    <span class="exit">退出</span>
+                </div>
+            </div>
+
+        </div>
+        <!--top-nav-wrap end-->
+        <!--sidebar-menu start-->
+        <div class="sidebar-menu">
+            <i-menu width="165" :accordion="true" class="bh-menu">
+                <Submenu name="1" class="workspace">
+                    <template slot="title">
+                        <img src="./images/icon/desktop.png" alt="">
+                        工作桌面
+                    </template>
+
+                </Submenu>
+                <Submenu name="2">
+                    <template slot="title">
+                        <img src="./images/icon/data.png" alt="">
+                        数据驾驶舱
+                    </template>
+                    <Menu-Item name="2-1">校级驾驶舱</Menu-Item>
+                    <Menu-Item name="2-2">学院驾驶舱</Menu-Item>
+                    <Menu-Item name="2-3">学科驾驶舱</Menu-Item>
+                    <Menu-Item name="2-4">学科带头人画像</Menu-Item>
+                </Submenu>
+                <Submenu name="3">
+                    <template slot="title">
+                        <img src="./images/icon/show.png" alt="">
+                        学科推演
+                    </template>
+                    <Menu-Item name="3-1">学科排名</Menu-Item>
+                    <Menu-Item name="3-2">学科推演</Menu-Item>
+                    <Menu-Item name="3-3">推演记录</Menu-Item>
+
+                </Submenu>
+                <Submenu name="4">
+                    <template slot="title">
+                        <img src="./images/icon/counts.png" alt="">
+                        学科排名分析
+                    </template>
+                    <Menu-Item name="4-1">学科排名</Menu-Item>
+                </Submenu>
+            </i-menu>
+        </div>
+        <!--sidebar-menu end-->
+
+        <!--main-container start-->
+        <div class="main">
+            <div class="mb-10 cf">
+                <div class="fl">
+                    <span class="page-title"><img src="./images/icon/college.png" alt="">&nbsp;药学院</span>
+                    <i-button class="bh-btn ml-20 bh-btn-change" @click="changeCollege=!changeCollege"><img src="./images/icon/change.png" alt="">&nbsp;切换</i-button>
+                </div>
+                <div class="fr">
+                    <i-button class="bh-btn mr-20" type="primary" @click="saveRecord=true">保留记录</i-button>
+                    <i-button class="bh-btn mr-20" :ghost="isTaken"  type="primary" @click="isTaken=!isTaken">采用本次推演结果</i-button>
+                    <i-button class="bh-btn mr-20" type="primary">导出推演结果</i-button>
+                    <i-button class="bh-btn" type="primary" style="width: 80px;">返回</i-button>
+                </div>
+            </div>
+            <div class="item-col-chart-box mb-20" v-show="changeCollege">
+                <div class="cf echarts-title">
+                    <ul class="filter-select-list">
+                        <li class="selected">全部</li>
+                        <li>a</li>
+                        <li>b</li>
+                        <li>c</li>
+                        <li>d</li>
+                        <li>e</li>
+                        <li>f</li>
+                        <li>g</li>
+                        <li>h</li>
+                        <li>i</li>
+                        <li>j</li>
+                        <li>k</li>
+                        <li>l</li>
+                        <li>m</li>
+                        <li>n</li>
+                        <li>o</li>
+                        <li>p</li>
+                        <li>q</li>
+                        <li>r</li>
+                        <li>s</li>
+                        <li>t</li>
+                        <li>u</li>
+                        <li>v</li>
+                        <li>w</li>
+                        <li>x</li>
+                        <li>y</li>
+                        <li>z</li>
+                    </ul>
+                </div>
+                <div class="filter-list-content">
+                    <div class="filter-list-left" :class="{'show-more':expand}">
+                        <radio-group class="bh-radio-group">
+                            <Radio :label="index" class="bh-radio bh-radio-square" v-for="(item,index) in 48">医学院</Radio>
+                        </radio-group>
+                    </div>
+                    <span class="filter-expand-text" @click="expand=!expand">
+                        <template v-if="expand">
+                            <Icon type="md-remove"></Icon>&nbsp;收缩全部
+                        </template>
+                        <template v-else>
+                            <Icon type="md-add"></Icon>&nbsp;展开全部
+                        </template>
+                    </span>
+                </div>
+            </div>
+            <div class="item-col-chart-box mb-20">
+                <div class="cf echarts-title">
+                    <span class="fl title-chart">学科推演</span> 
+                </div>
+                <div class="cf mt-20">
+                    <div class="fl">
+                        <i-button type="primary" ghost class="bh-btn mr-20" to="deduce_record.html">历史推演</i-button>
+                        <i-button type="primary" ghost class="bh-btn mr-20">一键还原</i-button>
+                        <i-button type="primary" ghost class="bh-btn mr-20" @click="operationRecord=true">操作记录</i-button>
+                    </div>
+                    <div class="fr">
+                        <i-button type="primary" ghost class="bh-btn mr-20" @click="modal1=true">人员调配</i-button>
+                        <i-button type="primary" ghost class="bh-btn mr-20" @click="platformAdjuct=true">平台调配</i-button>
+                        <i-button class="bh-btn" type="primary">开始推演</i-button>
+                    </div>
+                </div>
+                <i-table  :row-class-name="rowClassName"  class="bh-table mt-20" border stripe :columns="columns" :data="deduceList">
+                    <template slot-scope="scope" slot="action">
+                        <div class="table-action-group"  v-if="scope.row.type=='stu'">
+                            <a href="#" class="table-aciton-text" >移除</a>
+                            <Divider  type="vertical"></Divider>
+                            <i-select transfer class="bh-select bh-select-no-border" style="margin-left: -8px;">
+                                <i-option value="1">11</i-option>
+                            </i-select>
+                        </div>
+                    </template>
+                </i-table>
+            </div>
+            <div class="item-col-chart-box mb-20">
+                <div class="cf echarts-title">
+                    <span class="fl title-chart">指标项增比图</span> 
+                </div>
+                <Row :gutter="40" class="mt-20">
+                    <i-col span="12">
+                        <div id="barEcharts" style="height: 240px;"></div>
+                    </i-col>
+                    <i-col span="12">
+                        <i-table  class="bh-table" border stripe :columns="columns2" :data="deduceCompare">
+                        </i-table>
+                    </i-col>
+                </Row>
+            </div>
+            <div class="item-col-chart-box mb-20">
+                <div class="cf echarts-title">
+                    <span class="fl title-chart">学科排名：{{subInfo.name}}<span style="margin-left: 10px;">第<span class="top">&emsp;{{subInfo.top}}&emsp;</span>名</span></span> 
+                </div>
+                <div class="text-center">
+                    <i-button class="bh-btn" type="primary" style="margin:50px auto;" to="./subject_sort.html">查看推演后，所有学科排名</i-button>
+                </div>
+            </div>
+            <!-- 操作记录 -->
+            <Modal
+                v-model="saveRecord"
+                title="保留本次推演结果"
+                footer-hide
+                class-name="bh-modal">
+                <i-form class="bh-form" :label-width="120">
+                    <form-item label="记录名称：">
+                        <i-input class="bh-input"></i-input>
+                    </form-item>
+                    <form-item class="btn-group">
+                        <i-button type="primary" class="bh-btn">确认</i-button>
+                        <i-button type="primary" ghost class="bh-btn">取消</i-button>
+                    </form-item>
+                </i-form>
+            </Modal>
+            <!-- 操作记录 -->
+            <Modal
+                v-model="operationRecord"
+                title="操作记录"
+                footer-hide
+                width="80%"
+                class-name="bh-modal">
+                <div class="cf">
+                    <div class="fr">
+                        <i-select class="bh-select" style="width: 80px;">
+                            <i-option value="5">5</i-option>
+                        </i-select>
+                    </div>
+                </div>
+                <i-table  class="bh-table mt-20" border stripe :columns="columns_operation_record" :data="operation_record_list">
+                </i-table>
+                <div class="p-20 mt-20">
+                    <Page :total="60" show-total class-name="bh-page">
+                        <span>共12页，60条数据</span>
+                    </Page>
+                </div>
+            </Modal>
+            <!-- 人员调配 -->
+            <Modal
+                v-model="modal1"
+                title="人员调配"
+                footer-hide
+                width="80%"
+                class-name="bh-modal">
+                <div class="cf">
+                    <div class="fl">
+                        <div class="select-label-group">
+                            <span>学院：</span>
+                            <i-select class="bh-select" style="width: 120px;">
+                                <i-option value="1">中医学</i-option>
+                            </i-select>
+                        </div>
+                        <div class="select-label-group">
+                            <span>学科：</span>
+                            <i-select class="bh-select" style="width: 120px;">
+                                <i-option value="1">中医学</i-option>
+                            </i-select>
+                        </div>
+                        <div class="select-label-group">
+                            <span>职称：</span>
+                            <i-select class="bh-select" style="width: 120px;">
+                                <i-option value="1">中医学</i-option>
+                            </i-select>
+                        </div>
+                        <div class="select-label-group">
+                            <span>姓名：</span>
+                            <i-select class="bh-select" style="width: 120px;">
+                                <i-option value="1">中医学</i-option>
+                            </i-select>
+                        </div>
+                    </div>
+                    <div class="fr">
+                        <i-button type="primary" class="bh-btn mr-20">批量移入</i-button>
+                        <i-select class="bh-select" style="width: 80px;">
+                            <i-option value="5">5</i-option>
+                        </i-select>
+                    </div>
+                </div>
+                <i-table  class="bh-table mt-20" border stripe :columns="columns3" :data="peopleList">
+                    <template slot-scope="scope" slot="action">
+                        <a href="#" class="table-aciton-text">移入</a>
+                    </template>
+                </i-table>
+                <div class="p-20 mt-20">
+                    <Page :total="100" show-total class-name="bh-page">
+                        <span>共1页，100条数据</span>
+                    </Page>
+                </div>
+            </Modal>
+            <!-- 平台调配 -->
+            <Modal
+                v-model="platformAdjuct"
+                title="平台调配"
+                footer-hide
+                width="80%"
+                class-name="bh-modal">
+                <div class="cf">
+                    <div class="fr">
+                        <i-select class="bh-select" style="width: 80px;">
+                            <i-option value="5">5</i-option>
+                        </i-select>
+                    </div>
+                </div>
+                <i-table  class="bh-table mt-20" border stripe :columns="columns_paltform_adjuct" :data="paltform_adjuct_list">
+                    <template slot-scope="scope" slot="subject1">
+                        <div class="table-action-group">
+                            <i-select class="bh-select bh-select-no-border" transfer  v-model="paltform_adjuct_list[scope.index].subject1">
+                                <i-option :value="0">0%</i-option>
+                                <i-option :value="10">10%</i-option>
+                                <i-option :value="20">20%</i-option>
+                                <i-option :value="50">50%</i-option>
+                                <i-option :value="100">100%</i-option>
+                            </i-select>
+                        </div>
+                    </template>
+                    <template slot-scope="scope" slot="subject2">
+                        <div class="table-action-group">
+                            <i-select class="bh-select bh-select-no-border" transfer  v-model="paltform_adjuct_list[scope.index].subject2">
+                                <i-option :value="0">0%</i-option>
+                                <i-option :value="10">10%</i-option>
+                                <i-option :value="20">20%</i-option>
+                                <i-option :value="50">50%</i-option>
+                                <i-option :value="100">100%</i-option>
+                            </i-select>
+                        </div>
+                    </template>
+                    <template slot-scope="scope" slot="subject3">
+                        <div class="table-action-group">
+                            <i-select class="bh-select bh-select-no-border" transfer  v-model="paltform_adjuct_list[scope.index].subject3">
+                                <i-option :value="0">0%</i-option>
+                                <i-option :value="10">10%</i-option>
+                                <i-option :value="20">20%</i-option>
+                                <i-option :value="50">50%</i-option>
+                                <i-option :value="100">100%</i-option>
+                            </i-select>
+                        </div>
+                    </template>
+                    <template slot-scope="scope" slot="subject4">
+                        <div class="table-action-group">
+                            <i-select class="bh-select bh-select-no-border" transfer  v-model="paltform_adjuct_list[scope.index].subject4">
+                                <i-option :value="0">0%</i-option>
+                                <i-option :value="10">10%</i-option>
+                                <i-option :value="20">20%</i-option>
+                                <i-option :value="50">50%</i-option>
+                                <i-option :value="100">100%</i-option>
+                            </i-select>
+                        </div>
+                    </template>
+                </i-table>
+                <p class="tips mt-10">每行总值为100%，可确认调整 成功</p>
+                <div class="btn-group">
+                    <i-button type="primary" class="bh-btn">确认调整</i-button>
+                    <i-button type="primary" ghost class="bh-btn">取消调整</i-button>
+                </div>
+            </Modal>
+        </div>
+        <!--main-container end-->
+    </div>
+    <script src="./core/jquery/1.12.4/jquery.min.js"></script>
+    <script src="./core/echarts/5.0/echarts.min.js"></script>
+    <script src="./core/vue/2.6.10/vue.js"></script>
+    <script src="./core/iview/4.5.0/iview.min.js" charset="utf-8"></script>
+    <script src="./js/deduce.js"></script>
+</body>
+
+</html>

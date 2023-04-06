@@ -1,0 +1,135 @@
+@charset "utf-8";
+.title{
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 32px;
+    color: #283855;
+}
+.btn-group{
+    text-align: center;
+    display: block;
+}
+.btn-group .bh-btn{
+    min-width: 80px;
+    margin: 0 20px;
+}
+.select-label-group{
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 30px;
+}
+.select-label-group>span{
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 400;
+    color: #283855;
+    vertical-align: middle;
+}
+.filter-con{
+    padding: 20px;
+    margin: 0 -20px;
+    border-bottom: 1px dashed #D9DDE5;
+}
+.filter-item{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.filter-label{
+    width: 90px;
+    font-size: 15px;
+    line-height: 34px;
+    font-weight: 400;
+    color: #283855;
+}
+.filter-item-list{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: calc(100% - 90px);
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+.filter-item-list .date-split{
+    display: inline-block;
+    width: 14px;
+    height: 1px;
+    border: 1px solid #D9DDE5;
+    margin: 0 10px;
+}
+.page-title{
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 600;
+    color: #283855;
+    line-height: 32px;
+    vertical-align: middle;
+}
+.bh-btn-change{
+    border-color: #fff;
+}
+.filter-select-list{
+    padding: 6px 10px 0;
+}
+.filter-select-list li{
+    display: inline-block;
+    height: 35px;
+    font-size: 14px;
+    color: #283855;
+    line-height: 20px;
+    padding: 0 10px;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+.filter-select-list li.selected{
+    color: #5586F8;
+}
+.filter-list-content{
+    position: relative;
+    min-height: 40px;
+}
+.filter-list-left{
+    width: calc(100% - 120px);
+    padding-top: 12px;
+    height: 80px;
+    overflow: hidden;
+}
+.filter-list-left.show-more{
+    height: auto;
+}
+
+.filter-expand-text{
+    top: 20px;
+    right:20px;
+    position: absolute;
+    font-size: 14px;
+    font-weight: 400;
+    color: #5586F8;
+    cursor: pointer;
+}
+.bh-table .subject-info-row td{
+    color: #5586F8;
+}
+.table-action-group  .ivu-divider-vertical{
+    background-color: #D9DDE5;
+    width: 2px;
+}
+.table-action-group .bh-select{
+    width: auto;
+}
+.table-action-group .bh-select .ivu-select-selection{
+    background-color: transparent;
+    -webkit-box-shadow: none!important;
+            box-shadow: none!important;
+}
+.tips{
+    font-size: 14px;
+    line-height: 28px;
+    color: #EF9F6C;
+}
+.top{
+    color: #C63300;
+    font-size: 14px;
+    font-weight: bold;
+}

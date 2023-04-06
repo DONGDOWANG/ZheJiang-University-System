@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="zh-CN">
+    <meta charset="utf-8">
+    <!-- 删除默认的苹果工具栏和菜单栏 ： 即启用 WebApp 全屏模式  -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- 忽略数字自动识别为电话号码 ,忽略识别邮箱 -->
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="pragma" content="no-cache">
+    <title>浙江中医药大学</title>
+    <link rel="stylesheet" href="./core/iview/4.5.0/styles/iview.min.css">
+    <link rel="stylesheet" href="./core/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./core/bootstrap-select/1.13.10/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="./css/bh-iview.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/layout.css">
+    <link rel="stylesheet" href="./css/modules/subject.css">
+
+
+</head>
+
+<body>
+    <div id="app" class="wrapper"   >
+        <!--top-nav-wrap start-->
+        <div class="top-nav-wrap bg-fff">
+            <a href="" class="sch-logo">
+            </a>
+            <span class="model-page">浙江中医药大学学科管理系统</span>
+            <div class="nav-header-right">
+                <div class="right-info">
+                    <div class="dropdown">
+                        <img src="./images/icon/header-icon1.png" alt="">
+                        <select class="  selectpicker" data-width="200px">
+                            <option value="1">梁老师【学科办管理员】</option>
+                            <option value="2">王老师【一级学科秘书】</option>
+                            <option value="3">张老师【二级学科秘书】</option>
+                        </select>
+                    </div>
+                    <span class="exit">退出</span>
+                </div>
+            </div>
+
+        </div>
+        <!--top-nav-wrap end-->
+        <!--sidebar-menu start-->
+        <div class="sidebar-menu">
+            <i-menu width="165" :accordion="true" class="bh-menu">
+                <Submenu name="1" class="workspace">
+                    <template slot="title">
+                        <img src="./images/icon/desktop.png" alt="">
+                        工作桌面
+                    </template>
+
+                </Submenu>
+                <Submenu name="2">
+                    <template slot="title">
+                        <img src="./images/icon/data.png" alt="">
+                        数据驾驶舱
+                    </template>
+                    <Menu-Item name="2-1">校级驾驶舱</Menu-Item>
+                    <Menu-Item name="2-2">学院驾驶舱</Menu-Item>
+                    <Menu-Item name="2-3">学科驾驶舱</Menu-Item>
+                    <Menu-Item name="2-4">学科带头人画像</Menu-Item>
+                </Submenu>
+                <Submenu name="3">
+                    <template slot="title">
+                        <img src="./images/icon/show.png" alt="">
+                        学科推演
+                    </template>
+                    <Menu-Item name="3-1">学科排名</Menu-Item>
+                    <Menu-Item name="3-2">学科推演</Menu-Item>
+                    <Menu-Item name="3-3">推演记录</Menu-Item>
+
+                </Submenu>
+                <Submenu name="4">
+                    <template slot="title">
+                        <img src="./images/icon/counts.png" alt="">
+                        学科排名分析
+                    </template>
+                    <Menu-Item name="4-1">学科排名</Menu-Item>
+                </Submenu>
+            </i-menu>
+        </div>
+        <!--sidebar-menu end-->
+
+        <!--main-container start-->
+        <div class="main">
+            <div class="mb-20 cf">
+                <i-button class="fr bh-btn" type="primary" style="width: 80px;">返回</i-button>
+            </div>
+            <div class="item-col-chart-box mb-20">
+                <div class="cf echarts-title">
+                    <span class="fl title-chart">指标项选择</span> 
+                </div>
+                <div class="cf mt-20">
+                    <div class="fl">
+                        <p class="title">指标筛选：</p>
+                    </div>
+                    <div class="fr">
+                        <i-input search placeholder="Enter something..." style="width: 264px;"></i-input>
+                    </div>
+                </div>
+                <i-table  row-key="id" class="bh-table-tree bh-table-tree-hide-icon mt-20" :columns="columns" :data="quatoList" @on-row-click="expandRow"></i-table>
+                <div class="p-20 btn-group">
+                    <i-button class="bh-btn" type="primary">确认</i-button>
+                    <i-button class="bh-btn" type="primary" ghost>取消</i-button>
+                </div>
+            </div>
+        </div>
+        <!--main-container end-->
+    </div>
+    <script src="./core/jquery/1.12.4/jquery.min.js"></script>
+    <script src="./core/echarts/5.0/echarts.min.js"></script>
+    <script src="./core/vue/2.6.10/vue.js"></script>
+    <script src="./core/iview/4.5.0/iview.min.js" charset="utf-8"></script>
+    <script src="./js/quato_select.js"></script>
+</body>
+
+</html>

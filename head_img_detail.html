@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="zh-CN">
+    <meta charset="utf-8">
+    <!-- 删除默认的苹果工具栏和菜单栏 ： 即启用 WebApp 全屏模式  -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- 忽略数字自动识别为电话号码 ,忽略识别邮箱 -->
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="pragma" content="no-cache">
+    <title>浙江中医药大学</title>
+    <link rel="stylesheet" href="./core/iview/4.5.0/styles/iview.min.css">
+    <link rel="stylesheet" href="./core/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./core/bootstrap-select/1.13.10/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="./css/bh-iview.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/layout.css">
+    <link rel="stylesheet" href="./css//modules/headImg.css">
+    <link rel="stylesheet" href="./css/modules/style.css">
+
+
+</head>
+
+<body>
+    <div id="app" class="wrapper">
+        <!--top-nav-wrap start-->
+        <div class="top-nav-wrap bg-fff">
+            <a href="" class="sch-logo">
+            </a>
+            <span class="model-page">浙江中医药大学学科管理系统</span>
+            <div class="nav-header-right">
+                <div class="right-info">
+                    <div class="dropdown">
+                        <img src="./images/icon/header-icon1.png" alt="">
+                        <select class="  selectpicker" data-width="200px">
+                            <option value="1">梁老师【学科办管理员】</option>
+                            <option value="2">王老师【一级学科秘书】</option>
+                            <option value="3">张老师【二级学科秘书】</option>
+                        </select>
+                    </div>
+                    <span class="exit">退出</span>
+                </div>
+            </div>
+
+        </div>
+        <!--top-nav-wrap end-->
+        <!--sidebar-menu start-->
+        <div class="sidebar-menu">
+            <i-menu width="165" :accordion="true" class="bh-menu">
+                <Submenu name="1" class="workspace">
+                    <template slot="title">
+                        <img src="./images/icon/desktop.png" alt="">
+                        工作桌面
+                    </template>
+
+                </Submenu>
+                <Submenu name="2">
+                    <template slot="title">
+                        <img src="./images/icon/data.png" alt="">
+                        数据驾驶舱
+                    </template>
+                    <Menu-Item name="2-1">校级驾驶舱</Menu-Item>
+                    <Menu-Item name="2-2">学院驾驶舱</Menu-Item>
+                    <Menu-Item name="2-3">学科驾驶舱</Menu-Item>
+                    <Menu-Item name="2-4">学科带头人画像</Menu-Item>
+                </Submenu>
+                <Submenu name="3">
+                    <template slot="title">
+                        <img src="./images/icon/show.png" alt="">
+                        学科推演
+                    </template>
+                    <Menu-Item name="3-1">学科排名</Menu-Item>
+                    <Menu-Item name="3-2">学科推演</Menu-Item>
+                    <Menu-Item name="3-3">推演记录</Menu-Item>
+
+                </Submenu>
+                <Submenu name="4">
+                    <template slot="title">
+                        <img src="./images/icon/counts.png" alt="">
+                        学科排名分析
+                    </template>
+                    <Menu-Item name="4-1">学科排名</Menu-Item>
+                </Submenu>
+            </i-menu>
+        </div>
+        <!--sidebar-menu end-->
+
+        <!--main-container start-->
+        <div class="main">
+            <div class="module-box">
+                <div class="search-result-item teacher-caption">
+                    <span class="search-result-item-avactor">
+                        <img src="./images/icon/icon_default_avator.png" alt="">
+                    </span>
+                    <div class="search-result-item-content">
+                        <h3 class="search-result-item-title">席晨湘<span>[ 副研究员 ]</span></h3>
+                        <div class="divided-line"></div>
+                        <p class="search-result-item-info"><img src="images/icon/icon_capiton_1.png" alt="">学院：马克思主义学院</p>
+                        <p class="search-result-item-info"><img src="images/icon/icon_capiton_2.png" alt="">学科：马克思主义理论</p>
+                        <p class="search-result-item-info"><img src="images/icon/icon_capiton_3.png" alt="">H指数：马克思主义理论</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tabs-head">
+                <a :href="item.href+'.html'" v-for="(item, index) in tabsList" :key="index" :class="{active: activeTab == index}"
+                    @click="highLight(item,index)">{{item.title}}</a>
+            </div>
+                    <div class="main-content box-center">
+                        <div class="cf">
+                            <a href="javascript:history.go(-1);" class="back-index">回到上一页</a>
+                        </div>
+                        <div class="module-box">
+                            <div class="show-detail-content">
+                                <h4 class="show-detail-title">高等学校科学研究优秀成果奖（科学技术）</h4>
+                                <div class="article-tool">
+                                    <a href="javascript:void(0);" class="article-share">分享</a>
+                                    <a href="javascript:void(0);" class="article-power active">点赞</a>
+                                    <a href="javascript:void(0);" class="article-collect">收藏</a>
+                                </div>
+                                <!--基本信息-->
+                                <div class="abstract-con">
+                                    <div class="abstract-top">
+                                        <h5><img src="./images/icon/icon_baseInfo.png" alt="">基本信息：</h5>
+                                    </div>
+                                    <div class="abstract-body">
+                                        <div class="article-info-con">
+                                            <p class="article-info">
+                                                <span class="article-info-label">奖种:</span>
+                                                <span>XXX</span>
+                                            </p>
+                                            <p class="article-info">
+                                                <span class="article-info-label">获奖级别:</span>
+                                                <span>校级</span>
+                                            </p>
+                                            <p class="article-info">
+                                                <span class="article-info-label">获奖等级：</span>
+                                                <span>一等奖</span>
+                                            </p>
+                                            <p class="article-info">
+                                                <span class="article-info-label">获奖类别：</span>
+                                                <span>XXXXXX</span>
+                                            </p>
+                                        </div>
+                                        <div class="article-info-con">
+                                            <p class="article-info">
+                                                <span class="article-info-label">获奖日期：</span>
+                                                <span>2018/12/22</span>
+                                            </p>
+                                            <p class="article-info">
+                                                <span class="article-info-label">证书编号：</span>
+                                                <span>XXXXXX</span>
+                                            </p>
+                                            <p class="article-info">
+                                                <span class="article-info-label">组织单位：</span>
+                                                <span>浙江中医药大学</span>
+                                            </p>
+                                            <p class="article-info">
+                                                <span class="article-info-label">获奖成果类型：</span>
+                                                <span>XXXXXX</span>
+                                            </p>
+                                        </div>
+                                        <div class="article-info-con">
+                                            <p class="article-info">
+                                                <span class="article-info-label">完成单位：</span>
+                                                <span>浙江中医药大学</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--获奖人信息-->
+                                <div class="abstract-con">
+                                    <div class="abstract-top">
+                                        <h5><img src="./images/icon/icon_leader.png" alt="">获奖人信息：</h5>
+                                    </div>
+                                    <div class="abstract-body">
+                                        <div class="article-info-con">
+                                            <p class="article-info">
+                                                <span class="article-info-label">获奖人：</span>
+                                                <span>陈镱文、张三、张思</span>
+                                            </p>
+                                            <p class="article-info">
+                                                <span class="article-info-label">第一获奖人：</span>
+                                                <span>张光霖</span>
+                                            </p>
+                                            <p class="article-info">
+                                                <span class="article-info-label">获奖人单位：</span>
+                                                <span>浙江中医药大学</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--摘要-->
+                                <div class="abstract-con">
+                                    <div class="abstract-top">
+                                        <h5><img src="./images/icon/icon_abstract.png" alt="">摘要：</h5>
+                                    </div>
+                                    <div class="abstract-body">
+                                        <p>本发明公开了一种低功耗省面积有源RC复数滤波器，由I路与Q路两路差分信号输入，经过带通滤波单元，得到I路与Q路两路差分信号输出，带通滤波单元包括第一至第十六电阻、第一至第六电容、第一运放及第二运放；I路正极输入信号由端口（IINP）输入接第一电阻（R1）一端，第一电阻（R1）的另一端分别与第二电阻（R2）的一端、第一电容（C1）的一端和第七电阻（R7）的一端相接；第二电阻（R2）的另一端分别与第二电容（C2）、第三电阻（R3）的一端相接；第三电阻（R3）的另一端与Q路负极输出信号端口（QOUTN）相接。本发明仅用一对运算放大器实现了二阶复数滤波功能，降低了功耗，显著节约了版图面积，同时通过级联可构成更高阶的复数滤波器。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+
+        </div>
+        <!--main-container end-->
+    </div>
+    <script src="./core/jquery/1.12.4/jquery.min.js"></script>
+    <script src="./core/echarts/5.0/echarts.min.js"></script>
+    <script src="./core/vue/2.6.10/vue.js"></script>
+    <script src="./core/iview/4.5.0/iview.min.js" charset="utf-8"></script>
+    <script src="./js/echarts.js"></script>
+    <script src="./js/head_img.js"></script>
+    <script src="./js/dk_select.js" charset="utf-8"></script>
+    <script src="core/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script src="core/bootstrap-select/1.13.10/js/bootstrap-select.min.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>

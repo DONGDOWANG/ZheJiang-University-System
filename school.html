@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="zh-CN">
+    <meta charset="utf-8">
+    <!-- 删除默认的苹果工具栏和菜单栏 ： 即启用 WebApp 全屏模式  -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- 忽略数字自动识别为电话号码 ,忽略识别邮箱 -->
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="pragma" content="no-cache">
+    <title>浙江中医药大学</title>
+    <link rel="stylesheet" href="./core/iview/4.5.0/styles/iview.min.css">
+    <link rel="stylesheet" href="./core/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./core/bootstrap-select/1.13.10/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="./css/bh-iview.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/layout.css">
+    <link rel="stylesheet" href="./css/modules/style.css">
+
+
+</head>
+
+<body style="overflow: hidden;">
+    <div id="app" class="wrapper">
+        <!--top-nav-wrap start-->
+        <div class="top-nav-wrap bg-fff">
+            <a href="" class="sch-logo">
+            </a>
+            <span class="model-page">浙江中医药大学学科管理系统</span>
+            <div class="nav-header-right">
+                <div class="right-info">
+                    <div class="dropdown">
+                        <img src="./images/icon/header-icon1.png" alt="">
+                        <select class="  selectpicker" data-width="200px">
+                            <option value="1">梁老师【学科办管理员】</option>
+                            <option value="2">王老师【一级学科秘书】</option>
+                            <option value="3">张老师【二级学科秘书】</option>
+                        </select>
+                    </div>
+                    <span class="exit">退出</span>
+                </div>
+            </div>
+            <div class="bg-block"></div>
+            <div class="smallNav">
+                <ul class="tabs">
+                    <li v-for="(item, index) in tabsList" :key="index" :class="{active: activeTab == index,}"
+                        @click="highLight(item,index)">
+                        <a :href="'#'+ item.href">{{item.title}}</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <!--top-nav-wrap end-->
+        <!--sidebar-menu start-->
+        <div class="sidebar-menu">
+            <i-menu width="165" :accordion="true" class="bh-menu">
+                <Submenu name="1" class="workspace">
+                    <template slot="title">
+                        <img src="./images/icon/desktop.png" alt="">
+                        工作桌面
+                    </template>
+
+                </Submenu>
+                <Submenu name="2">
+                    <template slot="title">
+                        <img src="./images/icon/data.png" alt="">
+                        数据驾驶舱
+                    </template>
+                    <Menu-Item name="2-1">校级驾驶舱</Menu-Item>
+                    <Menu-Item name="2-2">学院驾驶舱</Menu-Item>
+                    <Menu-Item name="2-3">学科驾驶舱</Menu-Item>
+                    <Menu-Item name="2-4">学科带头人画像</Menu-Item>
+                </Submenu>
+                <Submenu name="3">
+                    <template slot="title">
+                        <img src="./images/icon/show.png" alt="">
+                        学科推演
+                    </template>
+                    <Menu-Item name="3-1">学科排名</Menu-Item>
+                    <Menu-Item name="3-2">学科推演</Menu-Item>
+                    <Menu-Item name="3-3">推演记录</Menu-Item>
+
+                </Submenu>
+                <Submenu name="4">
+                    <template slot="title">
+                        <img src="./images/icon/counts.png" alt="">
+                        学科排名分析
+                    </template>
+                    <Menu-Item name="4-1">学科排名</Menu-Item>
+                </Submenu>
+            </i-menu>
+        </div>
+        <!--sidebar-menu end-->
+
+        <!--main-container start-->
+        <div class="main" id="scrollBox" style="padding-bottom: 70px;">
+            <p class="anchorPoint title-list all"  style="margin-top: 20px;">
+                <img src="./images/icon/overview_icon.png" alt="">
+                <span id="achorlink1" style="position: absolute;top:-130px;left: 0;"></span>
+                学校总览
+            </p>
+            <div class="mt-20">
+                <ul class="over-view">
+                    <li v-for="(item, index) in overViewList" :key="index"
+                        @click="modal1=true,showTableIndex=index,modalTitle=item.title">
+                        <!-- <img :src="item.src" class="fl"> -->
+                        <div class="info cf">
+                            <p class="fl">{{item.title}}</p>
+                            <span class="fl">{{item.num}}</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="mt-20">
+                <ul class="over-view">
+                    <li v-for="(item, index) in TopList" :key="index" style="width: 25%;"
+                    @click="modal2=true,showTableIndex2=index">
+                    <div class="info cf">
+                            <img :src="item.src" alt="" class="" >
+                            <a class="">{{item.title}}</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- 学科建设 -->
+            <row class="item-row-chart-box mt-20" :gutter="16">
+                <i-col span="8">
+                    <div class="item-col-chart-box">
+                        <div class="cf echarts-title">
+                            <span class="fl title-chart">学科建设排行榜--总榜</span>
+                        </div>
+                        <div id="subject-top1" style="height:380px;">
+
+                        </div>
+                    </div>
+                </i-col>
+
+                <i-col span="8">
+                    <div class="item-col-chart-box">
+                        <div class="cf echarts-title">
+                            <span class="fl title-chart">学科建设排行榜--进步榜</span>
+
+                        </div>
+                        <div id="subject-top2" style="height:380px;">
+
+                        </div>
+                    </div>
+                </i-col>
+                <i-col span="8">
+                    <div class="item-col-chart-box">
+                        <div class="cf echarts-title">
+                            <span class="fl title-chart">学科建设排行榜--人均榜</span>
+
+                        </div>
+                        <div id="subject-top3" style="height:380px;">
+                        </div>
+                    </div>
+                </i-col>
+
+            </row>
+            <!-- 学科建设 -->
+            <row class="item-row-chart-box mt-20" :gutter="16">
+                <i-col span="16">
+                    <div class="item-col-chart-box">
+                        <div class="cf echarts-title">
+                            <span class="fl title-chart">各学院学科建设经费使用情况</span>
+                            <a href="" class="more fr">更多</a>
+                        </div>
+                        <div style="display: flex;">
+                            <div style="width:30%;height:380px;position: relative;">
+                                <i-select v-model="selectValues10" class="bh-select-echarts left-select">
+                                    <i-option v-for="item in selectList10" :value="item.value" :key="item.value">{{
+                                        item.label }}</i-option>
+                                </i-select>
+                                <div id="money1" style="height:380px;">
+    
+                                </div>
+                            </div>
+                            <div style="width:70%;height:380px;position: relative;">
+
+                                <div id="money2" style="height:380px;">
+                                
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div>
+
+                    </div>
+                </i-col>    
+
+                <i-col span="8">
+                    <div class="item-col-chart-box">
+                        <div class="cf echarts-title">
+                            <span class="fl title-chart">团队学科建设经费使用情况</span>
+                            <a href="" class="more fr">更多</a>
+
+                        </div>
+                        <i-select v-model="selectValues11" class="bh-select-echarts left-select">
+                            <i-option v-for="item in selectList11" :value="item.value" :key="item.value">{{
+                                item.label }}</i-option>
+                        </i-select>
+                        <div id="money3" style="height:380px;">
+                        </div>
+                    </div>
+                </i-col>
+
+            </row>
+            <p class="anchorPoint2 title-list all">
+                <img src="./images/icon/icon-overview-end.png" alt="">
+                学校分览
+            </p>
+            <div class="module-item">
+
+                <p class="anchorPoint title-list">
+                    <img src="./images/icon/scitentific.png" alt="">
+                    <span id="achorlink2" style="position: absolute;top:-130px;left: 0;"></span>
+                    科学研究
+                    <Tooltip placement="right" class="bh-tooltip">
+                        <Icon type="md-help-circle"></Icon>
+                        <template slot="content">
+                            <p>
+                                点击图表下方图例，可动态查看对应的数据分析。
+                            </p>
+                            <p>
+                                例如：学术论文：可分别点击折线图下方的‘SCI一区’、‘一级期刊’、‘国内期刊’、‘国外期刊’，可动态查看数据分析。其他图表同理。
+                            </p>
+                        </template>
+                    </Tooltip>
+                </p>
+                <!-- 科学研究 -->
+                <row class="item-row-chart-box mt-20" :gutter="16">
+                    <i-col span="12">
+                        <div class="item-col-chart-box">
+                            <div class="cf echarts-title">
+                                <span class="fl title-chart">学术论文</span>
+                                <a href="" class="more fr">更多</a>
+                            </div>
+                            <div id="article" style="height:280px;">
+    
+                            </div>
+                        </div>
+                    </i-col>
+    
+                    <i-col span="12">
+                        <div class="item-col-chart-box ">
+                            <div class="cf echarts-title">
+                                <span class="fl title-chart">科研获奖</span>
+                                <a href="" class="more fr">更多</a>
+                            </div>
+    
+                            <i-select v-model="selectValues1" class="bh-select-echarts ">
+                                <i-option v-for="item in selectList1" :value="item.value" :key="item.value">{{
+                                    item.label }}</i-option>
+                            </i-select>
+    
+                            <div id="reward" style="height:280px;">
+    
+                            </div>
+                        </div>
+                    </i-col>
+                </row>
+                <row class="item-row-chart-box mt-20" :gutter="16">
+                    <i-col span="12">
+                        <div class="item-col-chart-box">
+                            <div class="cf echarts-title">
+                                <span class="fl title-chart">纵向课题</span>
+                                <a href="" class="more fr">更多</a>
+                            </div>
+                            <i-select v-model="selectValues3" class="bh-select-echarts">
+                                <i-option v-for="item in selectList3" :value="item.value" :key="item.value">{{
+                                    item.label }}</i-option>
+                            </i-select>
+                            <div id="direction" style="height:280px;">
+    
+                            </div>
+                        </div>
+                    </i-col>
+    
+                    <i-col span="12">
+                        <div class="item-col-chart-box">
+                            <div class="cf echarts-title">
+                                <span class="fl title-chart">参加本领域重要国际会议并做报告情况</span>
+                                <a href="" class="more fr">更多</a>
+                            </div>
+                            <div id="report" style="height:280px;padding-top: 30px;">
+                                <i-table class="bh-table" height="240" border stripe :columns="setOptions1"
+                                    :data="reportData"></i-table>
+                            </div>
+                        </div>
+                    </i-col>
+    
+    
+                </row>
+            </div>
+            <div class="module-item">
+
+                <p class="anchorPoint title-list">
+                    <img src="./images/icon/scitentific.png" alt="">
+                    <span id="achorlink3" style="position: absolute;top:-130px;left: 0;"></span>
+                    人才培养
+                </p>
+                <!-- 人才培养 -->
+                <row class="item-row-chart-box mt-20" :gutter="16">
+                    <i-col span="8">
+                        <div class="item-col-chart-box">
+                            <div class="cf echarts-title">
+                                <span class="fl title-chart">近五年授予学位情况统计</span>
+                                <a href="" class="more fr">更多</a>
+                            </div>
+                            <div id="degree" style="height:280px;">
+    
+                            </div>
+                        </div>
+                    </i-col>
+    
+                    <i-col span="8">
+                        <div class="item-col-chart-box">
+                            <div class="cf echarts-title">
+                                <span class="fl title-chart">教学成果奖</span>
+                                <a href="" class="more fr">更多</a>
+                            </div>
+                            <i-select v-model="selectValues3" class="bh-select-echarts">
+                                <i-option v-for="item in selectList3" :value="item.value" :key="item.value">{{
+                                    item.label }}</i-option>
+                            </i-select>
+                            <div id="result" style="height:280px;">
+    
+                            </div>
+                        </div>
+                    </i-col>
+    
+                    <i-col span="8">
+                        <div class="item-col-chart-box">
+                            <div class="cf echarts-title">
+                                <span class="fl title-chart">课程建设</span>
+                                <a href="" class="more fr">更多</a>
+                            </div>
+                            <div id="courses" style="height:280px;padding-top: 30px;">
+                                <i-table class="bh-table" height="240" stripe :columns="setOptions2" :data="coursesData"
+                                    border :show-header='isShowHeader'>
+                                    <template slot-scope="{ row }" slot="line">
+                                        <span class="line">&nbsp;</span>
+                                    </template>
+                                    <template slot-scope="{ row }" slot="num">
+                                        <span>{{row.num}}个</span>
+                                    </template>
+                                </i-table>
+                            </div>
+                        </div>
+                    </i-col>
+                </row>
+                <!-- 人才培养 -->
+                <row class="item-row-chart-box mt-20" :gutter="16">
+                    <i-col span="6">
+                        <div class="item-col-chart-box">
+                            <div class="cf echarts-title">
+                                <span class="fl title-chart">学科竞赛</span>
+                                <a href="" class="more fr">更多</a>
+                            </div>
+                            <i-select v-model="selectValues4" class="bh-select-echarts">
+                                <i-option v-for="item in selectList4" :value="item.value" :key="item.value">{{
+                                    item.label }}</i-option>
+                            </i-select>
+                            <div id="sub-race" style="height:280px;">
+    
+                            </div>
+                        </div>
+                    </i-col>
+    
+                    <i-col span="6">
+                        <div class="item-col-chart-box">
+                            <div class="cf echarts-title">
+                                <span class="fl title-chart">学生发表论文</span>
+                                <a href="" class="more fr">更多</a>
+                            </div>
+                            <div id="stu-article" style="height:280px;">
+    
+                            </div>
+                        </div>
+                    </i-col>
+                    <i-col span="6">
+                        <div class="item-col-chart-box">
+                            <div class="cf echarts-title">
+                                <span class="fl title-chart">国家级思政教育成果</span>
+                                <a href="" class="more fr">更多</a>
+                            </div>
+                            <div id="education" style="height:280px;">
+    
+                            </div>
+                        </div>
+                    </i-col>
+    
+                    <i-col span="6">
+                        <div class="item-col-chart-box">
+                            <div class="cf echarts-title">
+                                <span class="fl title-chart">教材建设（第一主编）</span>
+                                <a href="" class="more fr">更多</a>
+                            </div>
+                            <div style="height:280px;padding-top: 30px;">
+                                <i-table class="bh-table" height="240" stripe :columns="setOptions3" :data="textbookData"
+                                    border :show-header='isShowHeader'>
+                                    <template slot-scope="{ row }" slot="num">
+                                        <span>{{row.num}}个</span>
+                                    </template>
+                                </i-table>
+                            </div>
+                        </div>
+                    </i-col>
+                </row>
+            </div>
+            <div class="module-item">
+
+                <p class="anchorPoint title-list">
+                    <img src="./images/icon/teachers.png" alt="">
+                    <span id="achorlink4" style="position: absolute;top:-130px;left: 0;"></span>
+                    师资队伍
+                </p>
+                <!-- 人才培养 -->
+                <row class="item-row-chart-box mt-20" :gutter="16">
+                    <i-col span="6">
+                        <div class="item-col-chart-box">
+                            <div class="cf echarts-title">
+                                <span class="fl title-chart">职称结构</span>
+                                <a href="" class="more fr">更多</a>
+                            </div>
+                            <div id="job" style="height:280px;">
+    
+                            </div>
+                        </div>
+                    </i-col>
+    
+                    <i-col span="12">
+                        <div class="item-col-chart-box">
+                            <div class="cf echarts-title">
+                                <span class="fl title-chart">学生发表论文</span>
+                                <a href="" class="more fr">更多</a>
+                            </div>
+                            <div style="height:280px;display: flex;">
+                                <div id="school1" style="width:calc(100% / 3);height:280px;">
+    
+                                </div>
+                                <div id="school2" style="width:calc(100% / 3);height:280px;">
+    
+                                </div>
+                                <div id="school3" style="width:calc(100% / 3);height:280px;">
+    
+                                </div>
+                            </div>
+    
+                        </div>
+                    </i-col>
+    
+                    <i-col span="6">
+                        <div class="item-col-chart-box">
+                            <div class="cf echarts-title">
+                                <span class="fl title-chart">年龄结构</span>
+                                <a href="" class="more fr">更多</a>
+                            </div>
+                            <div id="ages" style="height:280px;">
+    
+                            </div>
+                        </div>
+                    </i-col>
+                </row>
+                <!-- 人才培养 -->
+                <row class="item-row-chart-box mt-20" :gutter="16">
+                    <i-col span="6">
+                        <div class="item-col-chart-box">
+                            <div class="cf echarts-title">
+                                <span class="fl title-chart">学历结构</span>
+                                <a href="" class="more fr">更多</a>
+                            </div>
+                            <div id="degree-construction" style="height:280px;">
+    
+                            </div>
+                        </div>
+                    </i-col>
+    
+                    <i-col span="12">
+                        <div class="item-col-chart-box">
+                            <div class="cf echarts-title">
+                                <span class="fl title-chart">高层次人才</span>
+                                <a href="" class="more fr">更多</a>
+                            </div>
+                            <div style="height:280px;display: flex;">
+                                <div id="person1" style="width:calc(100% / 3);height:280px;">
+    
+                                </div>
+                                <div id="person2" style="width:calc(100% / 3 * 2) ;height:280px;padding-top: 30px;">
+                                    <i-table class="bh-table" height="240" stripe :columns="setOptions4" :data="personData"
+                                        border :show-header='isShowHeader'>
+                                        <template slot-scope="{ row }" slot="num">
+                                            <span>{{row.num}}个</span>
+                                        </template>
+                                    </i-table>
+                                </div>
+    
+                            </div>
+    
+                        </div>
+                    </i-col>
+    
+                    <i-col span="6">
+                        <div class="item-col-chart-box">
+                            <div class="cf echarts-title">
+                                <span class="fl title-chart">团队建设</span>
+                                <a href="" class="more fr">更多</a>
+                            </div>
+                            <div id="tearm" style="height:280px;padding-top: 30px;">
+                                <i-table class="bh-table" height="240" stripe :columns="setOptions5" :data="tearmData"
+                                    border :show-header='isShowHeader'>
+                                    <template slot-scope="{ row }" slot="num">
+                                        <span>{{row.num}}个</span>
+                                    </template>
+                                </i-table>
+                            </div>
+                        </div>
+                    </i-col>
+                </row>
+            </div>
+            <div class="module-item">
+
+                <p class="anchorPoint title-list">
+                    <img src="./images/icon/platform.png" alt="">
+                    <span id="achorlink5" style="position: absolute;top:-130px;left: 0;"></span>
+                    平台支撑
+                </p>
+                <!-- 人才培养 -->
+                <row class="item-row-chart-box mt-20" :gutter="16">
+                    <i-col span="9">
+                        <div class="item-col-chart-box">
+                            <div class="cf echarts-title">
+                                <span class="fl title-chart">科研平台</span>
+                                <a href="" class="more fr">更多</a>
+                            </div>
+                            <div style="height:280px;display: flex;">
+                                <div id="scientific" style="width:calc(100% / 2);height:280px;">
+    
+                                </div>
+                                <div style="width:calc(100% / 2);height:280px;padding-top: 30px;">
+                                    <i-table class="bh-table" height="240" stripe :columns="setOptions4" :data="personData"
+                                        border :show-header='isShowHeader'>
+                                        <template slot-scope="{ row }" slot="num">
+                                            <span>{{row.num}}个</span>
+                                        </template>
+                                    </i-table>
+                                </div>
+    
+                            </div>
+                        </div>
+                    </i-col>
+    
+                    <i-col span="9">
+                        <div class="item-col-chart-box">
+                            <div class="cf echarts-title">
+                                <span class="fl title-chart">临床平台</span>
+                                <a href="" class="more fr">更多</a>
+                            </div>
+                            <div style="height:280px;display: flex;">
+                                <div id="clinical" style="width:calc(100% / 2);height:280px;">
+    
+                                </div>
+                                <div style="width:calc(100% / 2);height:280px;padding-top: 30px;">
+                                    <i-table class="bh-table" height="240" stripe :columns="setOptions4" :data="personData"
+                                        border :show-header='isShowHeader'>
+                                        <template slot-scope="{ row }" slot="num">
+                                            <span>{{row.num}}个</span>
+                                        </template>
+                                    </i-table>
+                                </div>
+    
+                            </div>
+    
+                        </div>
+                    </i-col>
+    
+                    <i-col span="6">
+                        <div class="item-col-chart-box">
+                            <div class="cf echarts-title">
+                                <span class="fl title-chart">国家级教学平台</span>
+                                <a href="" class="more fr">更多</a>
+                            </div>
+                            <div id="tearm" style="height:280px;padding-top: 30px;">
+                                <i-table class="bh-table" height="240" stripe :columns="setOptions5" :data="tearmData"
+                                    border :show-header='isShowHeader'>
+                                    <template slot-scope="{ row }" slot="num">
+                                        <span>{{row.num}}个</span>
+                                    </template>
+                                </i-table>
+                            </div>
+                        </div>
+                    </i-col>
+                </row>
+            </div>
+            <div class="module-item">
+
+                <p class="anchorPoint title-list">
+                    <img src="./images/icon/service.png" alt="">
+                    <span id="achorlink6" style="position: absolute;top:-130px;left: 0;"></span>
+                    社会服务
+                </p>
+                <!-- 人才培养 -->
+                <row class="item-row-chart-box mt-20" :gutter="16">
+                    <i-col span="12">
+                        <div class="item-col-chart-box">
+                            <div class="cf echarts-title">
+                                <span class="fl title-chart">发明专利授权</span>
+                                <a href="" class="more fr">更多</a>
+                            </div>
+                            <div id="invent" style="height:280px;">
+    
+                            </div>
+                        </div>
+                    </i-col>
+    
+                    <i-col span="12">
+                        <div class="item-col-chart-box">
+                            <div class="cf echarts-title">
+                                <span class="fl title-chart">横向课题</span>
+                                <a href="" class="more fr">更多</a>
+                            </div>
+                            <i-select v-model="selectValues5" class="bh-select-echarts">
+                                <i-option v-for="item in selectList5" :value="item.value" :key="item.value">{{
+                                    item.label }}</i-option>
+                            </i-select>
+                            <div id="crosswise" style="height:280px;">
+    
+                            </div>
+                        </div>
+                    </i-col>
+    
+    
+                </row>
+            </div>
+
+        </div>
+        <Modal v-model="modal1" :title="modalTitle" @on-ok="ok" @on-cancel="cancel" width="1200">
+            <i-table class="bh-table2 view" border stripe :columns="setOptions6" :data="reportData6" tooltip
+                height="500" v-show="showTableIndex==0">
+                <template slot-scope="{ row }" slot="subjectInfo">
+                    <p v-for=" item in row.subjectInfo" class="text-p">
+                        {{item}}
+                    </p>
+                </template>
+            </i-table>
+            <i-table class="bh-table2 view" border stripe :columns="setOptions7" :data="reportData7" tooltip
+                height="500" v-show="showTableIndex==1">
+                <template slot-scope="{ row }" slot="secondSubject">
+                    <p class="text-span">
+                        {{row.secondSubject}}
+                    </p>
+                </template>
+                <template slot-scope="{ row }" slot="subjectInfo">
+                    <p v-for=" item in row.subjectInfo" class="text-p">
+                        {{item}}
+                    </p>
+                </template>
+            </i-table>
+            <i-table class="bh-table2 view" border stripe :columns="setOptions8" :data="reportData8" height="500"
+                v-show="showTableIndex==2"></i-table>
+            <i-table class="bh-table2 view" border stripe :columns="setOptions9" :data="reportData9" height="500"
+                v-show="showTableIndex==3||showTableIndex==4"></i-table>
+            <i-table class="bh-table2 view" border stripe :columns="setOptions10" :data="reportData10" height="500"
+                v-show="showTableIndex==5"></i-table>
+            <Page :total="100" show-total class-name="bh-page" show-sizer class="bh-page">
+                <span>共1页，100条数据</span>
+            </Page>
+        </Modal>
+        <Modal v-model="modal2" title="排行榜" @on-ok="ok" @on-cancel="cancel" width="1200">
+            <div v-show="showTableIndex2==0">
+                <div class="cf modaBody">
+                    <span class="fl">教育部学科评估结果</span>
+                    <i-select v-model="selectValues6" class="fr" style="width: 150px;">
+                        <i-option v-for="item in selectList6" :value="item.value" :key="item.value">{{
+                            item.label }}</i-option>
+                    </i-select>
+                </div>
+                <i-table class="bh-table2 view" border stripe :columns="setOptions11" :data="reportData11"
+                    :row-class-name="rowClassName" height="500"></i-table>
+            </div>
+            <div v-show="showTableIndex2==1">
+                <div class="cf modaBody">
+                    <span class="fl">ESI排名</span>
+                    <i-select v-model="selectValues8" class="fr  bh-select-modal" style="width: 150px;">
+                        <i-option v-for="item in selectList8" :value="item.value" :key="item.value">{{
+                            item.label }}</i-option>
+                    </i-select>
+                    <i-select v-model="selectValues7" class="fr bh-select-modal" style="width: 150px;">
+                        <i-option v-for="item in selectList7" :value="item.value" :key="item.value">{{
+                            item.label }}</i-option>
+                    </i-select>
+
+                </div>
+                <i-table class="bh-table2 view" border stripe :columns="setOptions12" :data="reportData12" height="500"
+                    v-show="selectValues7==1">
+                    <template slot-scope="{ row,column,index }" slot="subject">
+                        <p>
+                            {{row.subject}}
+                        </p>
+                    </template>
+                    <template slot-scope="{ row,index }" slot="date1">
+                        <p>{{row.date1}}
+                            <template>
+                                <img src="./images/icon/icon_sort_asc.png" alt="" v-if="row.date1Trend==true"
+                                    class="trend-img">
+                                <img src="./images/icon/icon_sort_desc.png" alt="" v-else-if="row.date1Trend==false"
+                                    class="trend-img down">
+                                {{row.date1Compare}}
+                            </template>
+                        </p>
+                    </template>
+                    <template slot-scope="{ row,index }" slot="date2">
+                        <p>{{row.date2}}
+                            <template>
+                                <img src="./images/icon/icon_sort_asc.png" alt="" v-if="row.date2Trend ==true"
+                                    class="trend-img">
+                                <img src="./images/icon/icon_sort_desc.png" alt="" v-else-if="row.date2Trend ==false"
+                                    class="trend-img down">
+                                {{row.date2Compare}}
+                            </template>
+                        </p>
+                    </template>
+                    <template slot-scope="{ row,index }" slot="date3">
+                        <p>{{row.date3}}
+                            <template>
+                                <img src="./images/icon/icon_sort_asc.png" alt="" v-if="row.date3Trend ==true"
+                                    class="trend-img">
+                                <img src="./images/icon/icon_sort_desc.png" alt="" v-else-if="row.date3Trend==false"
+                                    class="trend-img down">
+                                {{row.date3Compare}}
+                            </template>
+                        </p>
+                    </template>
+                    <template slot-scope="{ row,index }" slot="date4">
+                        <p>{{row.date4}}
+                            <template>
+                                <img src="./images/icon/icon_sort_asc.png" alt="" v-if="row.date4Trend ==true"
+                                    class="trend-img">
+                                <img src="./images/icon/icon_sort_desc.png" alt="" v-else-if="row.date4Trend ==false"
+                                    class="trend-img down">
+                                {{row.date4Compare}}
+                            </template>
+                        </p>
+                    </template>
+                    <template slot-scope="{ row,index }" slot="date5">
+                        <p>{{row.date5}}
+                            <template>
+                                <img src="./images/icon/icon_sort_asc.png" alt="" v-if="row.date5Trend ==true"
+                                    class="trend-img">
+                                <img src="./images/icon/icon_sort_desc.png" alt="" v-else-if="row.date5Trend ==false"
+                                    class="trend-img down">
+                                {{row.date5Compare}}
+                            </template>
+                        </p>
+                    </template>
+                    <template slot-scope="{ row,index }" slot="date6">
+                        <p>{{row.date6}}
+                            <template>
+                                <img src="./images/icon/icon_sort_asc.png" alt="" v-if="row.date6Trend ==true"
+                                    class="trend-img">
+                                <img src="./images/icon/icon_sort_desc.png" alt="" v-else-if="row.date6Trend ==false"
+                                    class="trend-img down">
+                                {{row.date6Compare}}
+                            </template>
+                        </p>
+                    </template>
+                </i-table>
+                <i-table class="bh-table2 view" border stripe :columns="setOptions15" :data="reportData15"
+                    :row-class-name="rowClassName" height="500" v-show="selectValues7==2">
+                </i-table>
+                <i-table class="bh-table2 view" border stripe :columns="setOptions16" :data="reportData16"
+                    :row-class-name="rowClassName" height="500" v-show="selectValues7==3">
+                </i-table>
+            </div>
+            <div v-show="showTableIndex2==2">
+                <div class="cf modaBody">
+                    <span class="fl">软科中国最好大学排名</span>
+                    <i-select v-model="selectValues8" class="fr  bh-select-modal" style="width: 150px;">
+                        <i-option v-for="item in selectList8" :value="item.value" :key="item.value">{{
+                            item.label }}</i-option>
+                    </i-select>
+                </div>
+                <i-table class="bh-table2 view" border stripe :columns="setOptions13" height="500" :data="reportData13"
+                    :row-class-name="rowClassName"></i-table>
+            </div>
+            <div v-show="showTableIndex2==3">
+                <div class="cf modaBody">
+                    <span class="fl">软科中国最好学科排名</span>
+                    <i-select v-model="selectValues9" class="fr  bh-select-modal" style="width: 150px;">
+                        <i-option v-for="item in selectList9" :value="item.value" :key="item.value">{{
+                            item.label }}</i-option>
+                    </i-select>
+                </div>
+                <i-table class="bh-table2 view" border stripe :columns="setOptions14" :data="reportData14" height="500"
+                    :row-class-name="rowClassName"></i-table>
+            </div>
+            <Page :total="100" show-total class-name="bh-page">
+                <span>共1页，100条数据</span>
+            </Page>
+        </Modal>
+    </div>
+    <script src="./core/vue/2.6.10/vue.js"></script>
+    <script src="./core/jquery/1.12.4/jquery.min.js"></script>
+    <script src="./js/echarts.js"></script>
+    <script src="./core/echarts/5.0/echarts.min.js"></script>
+    <script src="./core/echarts_liquidfill/3.0/echarts-liquidfill.min.js"></script>
+    <script src="./core/iview/4.5.0/iview.min.js" charset="utf-8"></script>
+    <script src="core/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script src="core/bootstrap-select/1.13.10/js/bootstrap-select.min.js"></script>
+    <script src="./js/school.js"></script>
+</body>
+
+</html>

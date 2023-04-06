@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="zh-CN">
+    <meta charset="utf-8">
+    <!-- 删除默认的苹果工具栏和菜单栏 ： 即启用 WebApp 全屏模式  -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- 忽略数字自动识别为电话号码 ,忽略识别邮箱 -->
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="pragma" content="no-cache">
+    <title>浙江中医药大学</title>
+    <link rel="stylesheet" href="./core/iview/4.5.0/styles/iview.min.css">
+    <link rel="stylesheet" href="./core/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./core/bootstrap-select/1.13.10/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="./css/bh-iview.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/layout.css">
+    <link rel="stylesheet" href="./css/modules/style.css">
+
+
+</head>
+
+<body>
+    <div id="app" class="wrapper">
+        <!--top-nav-wrap start-->
+        <div class="top-nav-wrap bg-fff">
+            <a href="" class="sch-logo">
+            </a>   
+            <span class="model-page">浙江中医药大学学科管理系统</span>
+            <div class="nav-header-right">
+                <div class="right-info">
+                    <div class="dropdown">
+                        <img src="./images/icon/header-icon1.png" alt="">
+                        <select class="  selectpicker" data-width="200px">
+                            <option value="1">梁老师【学科办管理员】</option>
+                            <option value="2">王老师【一级学科秘书】</option>
+                            <option value="3">张老师【二级学科秘书】</option>
+                        </select>
+                    </div>
+                    <span class="exit">退出</span>
+                </div>
+            </div>
+
+        </div>
+        <!--top-nav-wrap end-->
+        <!--sidebar-menu start-->
+        <div class="sidebar-menu">
+            <i-menu width="165" :accordion="true" class="bh-menu">
+                <Submenu name="1" class="workspace">
+                    <template slot="title">
+                        <img src="./images/icon/desktop.png" alt="">
+                        工作桌面
+                    </template>
+
+                </Submenu>
+                <Submenu name="2">
+                    <template slot="title">
+                        <img src="./images/icon/data.png" alt="">
+                        数据驾驶舱
+                    </template>
+                    <Menu-Item name="2-1">校级驾驶舱</Menu-Item>
+                    <Menu-Item name="2-2">学院驾驶舱</Menu-Item>
+                    <Menu-Item name="2-3">学科驾驶舱</Menu-Item>
+                    <Menu-Item name="2-4">学科带头人画像</Menu-Item>
+                </Submenu>
+                <Submenu name="3">
+                    <template slot="title">
+                        <img src="./images/icon/show.png" alt="">
+                        学科推演
+                    </template>
+                    <Menu-Item name="3-1">学科排名</Menu-Item>
+                    <Menu-Item name="3-2">学科推演</Menu-Item>
+                    <Menu-Item name="3-3">推演记录</Menu-Item>
+
+                </Submenu>
+                <Submenu name="4">
+                    <template slot="title">
+                        <img src="./images/icon/counts.png" alt="">
+                        学科排名分析
+                    </template>
+                    <Menu-Item name="4-1">学科排名</Menu-Item>
+                </Submenu>
+            </i-menu>
+        </div>
+        <!--sidebar-menu end-->
+
+        <!--main-container start-->
+        <div class="main">
+  
+                <div class="module-box">
+                    <div class="quick-search">
+                        <i-input search enter-button size="large" placeholder="请输入姓名/工号" class="bh-input-search"></i-input>
+                    </div>
+                    <div class="filters-con">
+                        <Tabs class="bh-tabs">
+                            <tab-pane label="学科" name="name1">
+                                <span class="filter-list-collapsed">展开</span>
+                                <checkbox-group  v-model="college1" class="bh-checkbox-group">
+                                    <Checkbox :label="item.label" class="bh-checkbox" v-for="item in collegeList">{{item.label}}</Checkbox>
+                                </checkbox-group>
+                                <div class="flexBox checkBox">
+                                    已选条件：
+                                    <Tag v-for="item in college1" color="rgb(85,134,248,.2)" class="bh-tag"  style="color: #5586F8!important;"  closable @on-close="handleClose">{{item}}</Tag>
+                                </div>
+                            </tab-pane>
+                            <tab-pane label="学院" name="name2">
+                                <span class="filter-list-collapsed">展开</span>
+                                <checkbox-group  v-model="college2" class="bh-checkbox-group">
+                                    <Checkbox :label="index" class="bh-checkbox" v-for="index in 12">马克思主义学院</Checkbox>
+                                </checkbox-group>
+                                <div class="flexBox checkBox">
+                                    已选条件：
+                                    <Tag v-for="item in college2" color="rgb(85,134,248,.2)" class="bh-tag"  style="color: #5586F8!important;"  closable @on-close="handleClose">{{item}}</Tag>
+                                </div>
+                            </tab-pane>
+
+
+                        </Tabs>
+                    </div>
+                </div>
+                <div class="module-box p-20 ">
+                    <p class="search-result-num">发现<font>2013</font>条数据</p>
+                    <p class="cf"><i-select v-model="selectValues5" class="bh-select-echarts search fr">
+                        <i-option v-for="item in selectList5" :value="item.value" :key="item.value">{{
+                            item.label }}</i-option>
+                    </i-select></p>
+                    <Row :gutter="20">
+                        <i-col span="6" v-for="item in searchData">
+                            <a href="teacher-info.html" class="search-result-item">
+                                <span class="search-result-item-avactor">
+                                    <img src="./images/icon/icon_default_avator.png" alt="">
+                                </span>
+                                <div class="search-result-item-content">
+                                    <h3 class="search-result-item-title">{{item.name}}<span>{{item.job}}</span><span>H指数：{{item.H}}</span></h3>
+                                    <div class="divided-line"></div>
+                                    <p class="search-result-item-info"><img src="images/icon/icon_capiton_1.png" alt="">所属学院：{{item.firstSubject}}</p>
+                                    <p class="search-result-item-info"><img src="images/icon/icon_capiton_2.png" alt="">所属学科：{{item.college}}</p>
+                                    <p class="search-result-item-info"><img src="images/icon/icon_capiton_2.png" alt="">所属学科：{{item.secondSubject}}</p>
+                                    <p class="search-result-item-info"><img src="images/icon/icon_capiton_2.png" alt="">所属学科：{{item.total}}</p>
+                                </div>
+                            </a> 
+                        </i-col>
+                    </Row>
+                </div>
+                <back-top class="bh-back-top"></back-top>
+        </div>
+        <!--main-container end-->
+    </div>
+    <script src="./core/jquery/1.12.4/jquery.min.js"></script>
+    <script src="./core/echarts/5.0/echarts.min.js"></script>
+    <script src="./core/vue/2.6.10/vue.js"></script>
+    <script src="./core/iview/4.5.0/iview.min.js" charset="utf-8"></script>
+    <script src="./js/echarts.js"></script>
+    <script src="./js/search.js"></script>
+    <script src="core/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script src="core/bootstrap-select/1.13.10/js/bootstrap-select.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="zh-CN">
+    <meta charset="utf-8">
+    <!-- 删除默认的苹果工具栏和菜单栏 ： 即启用 WebApp 全屏模式  -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- 忽略数字自动识别为电话号码 ,忽略识别邮箱 -->
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="pragma" content="no-cache">
+    <title>浙江中医药大学</title>
+    <link rel="stylesheet" href="./core/iview/4.5.0/styles/iview.min.css">
+    <link rel="stylesheet" href="./core/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./core/bootstrap-select/1.13.10/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="./css/bh-iview.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/layout.css">
+    <link rel="stylesheet" href="./css/modules/subject.css">
+
+
+</head>
+
+<body>
+    <div id="app" class="wrapper"   >
+        <!--top-nav-wrap start-->
+        <div class="top-nav-wrap bg-fff">
+            <a href="" class="sch-logo">
+            </a>
+            <span class="model-page">浙江中医药大学学科管理系统</span>
+            <div class="nav-header-right">
+                <div class="right-info">
+                    <div class="dropdown">
+                        <img src="./images/icon/header-icon1.png" alt="">
+                        <select class="  selectpicker" data-width="200px">
+                            <option value="1">梁老师【学科办管理员】</option>
+                            <option value="2">王老师【一级学科秘书】</option>
+                            <option value="3">张老师【二级学科秘书】</option>
+                        </select>
+                    </div>
+                    <span class="exit">退出</span>
+                </div>
+            </div>
+
+        </div>
+        <!--top-nav-wrap end-->
+        <!--sidebar-menu start-->
+        <div class="sidebar-menu">
+            <i-menu width="165" :accordion="true" class="bh-menu">
+                <Submenu name="1" class="workspace">
+                    <template slot="title">
+                        <img src="./images/icon/desktop.png" alt="">
+                        工作桌面
+                    </template>
+
+                </Submenu>
+                <Submenu name="2">
+                    <template slot="title">
+                        <img src="./images/icon/data.png" alt="">
+                        数据驾驶舱
+                    </template>
+                    <Menu-Item name="2-1">校级驾驶舱</Menu-Item>
+                    <Menu-Item name="2-2">学院驾驶舱</Menu-Item>
+                    <Menu-Item name="2-3">学科驾驶舱</Menu-Item>
+                    <Menu-Item name="2-4">学科带头人画像</Menu-Item>
+                </Submenu>
+                <Submenu name="3">
+                    <template slot="title">
+                        <img src="./images/icon/show.png" alt="">
+                        学科推演
+                    </template>
+                    <Menu-Item name="3-1">学科排名</Menu-Item>
+                    <Menu-Item name="3-2">学科推演</Menu-Item>
+                    <Menu-Item name="3-3">推演记录</Menu-Item>
+
+                </Submenu>
+                <Submenu name="4">
+                    <template slot="title">
+                        <img src="./images/icon/counts.png" alt="">
+                        学科排名分析
+                    </template>
+                    <Menu-Item name="4-1">学科排名</Menu-Item>
+                </Submenu>
+            </i-menu>
+        </div>
+        <!--sidebar-menu end-->
+
+        <!--main-container start-->
+        <div class="main">
+            <div class="mb-20">
+                <i-button type="primary" class="bh-btn">开始推演</i-button>
+                <i-button type="primary" class="bh-btn ml-20" to="quato_select.html">指标选择</i-button>
+                <i-button type="primary" class="bh-btn ml-20">重置</i-button>
+            </div>
+            <div class="item-col-chart-box mb-20">
+                <div class="cf echarts-title">
+                    <span class="fl title-chart">学科建设排行榜--进步榜</span> 
+                </div>
+                <div id="sort" style="height: 470px;"></div>
+                <i-table class="bh-table mt-20" border stripe :columns="columns1" :data="data1">
+                    <template slot-scope="scope" slot="research">
+                        <p >{{scope.row.research}} 
+                            <template v-if="scope.index==0">
+                                <img src="./images/icon/icon_sort_asc.png" alt="" v-if="scope.row.researchCompare>0" style="margin-top: -2px;">
+                                <img src="./images/icon/icon_sort_desc.png" alt="" v-else>
+                                {{Math.abs(scope.row.researchCompare)}}
+                            </template>
+                        </p>
+                    </template>
+                    <template slot-scope="scope" slot="people">
+                        <p >{{scope.row.people}} 
+                            <template v-if="scope.index==0">
+                                <img src="./images/icon/icon_sort_asc.png" alt="" v-if="scope.row.peopleCompare>0" style="margin-top: -2px;">
+                                <img src="./images/icon/icon_sort_desc.png" alt="" v-else>
+                                {{Math.abs(scope.row.peopleCompare)}}
+                            </template>
+                        </p>
+                    </template>
+                    <template slot-scope="scope" slot="teacher">
+                        <p >{{scope.row.teacher}} 
+                            <template v-if="scope.index==0">
+                                <img src="./images/icon/icon_sort_asc.png" alt="" v-if="scope.row.teacherCompare>0" style="margin-top: -2px;">
+                                <img src="./images/icon/icon_sort_desc.png" alt="" v-else>
+                                {{Math.abs(scope.row.teacherCompare)}}
+                            </template>
+                        </p>
+                    </template>
+                    <template slot-scope="scope" slot="platform">
+                        <p >{{scope.row.platform}} 
+                            <template v-if="scope.index==0">
+                                <img src="./images/icon/icon_sort_asc.png" alt="" v-if="scope.row.platformCompare>0" style="margin-top: -2px;">
+                                <img src="./images/icon/icon_sort_desc.png" alt="" v-else>
+                                {{Math.abs(scope.row.platformCompare)}}
+                            </template>
+                        </p>
+                    </template>
+                    <template slot-scope="scope" slot="social">
+                        <p >{{scope.row.social}} 
+                            <template v-if="scope.index==0">
+                                <img src="./images/icon/icon_sort_asc.png" alt="" v-if="scope.row.socialCompare>0" style="margin-top: -2px;">
+                                <img src="./images/icon/icon_sort_desc.png" alt="" v-else>
+                                {{Math.abs(scope.row.socialCompare)}}
+                            </template>
+                        </p>
+                    </template>
+                    <template slot-scope="scope" slot="score">
+                        <p >{{scope.row.score}} 
+                            <template v-if="scope.index==0">
+                                <img src="./images/icon/icon_sort_asc.png" alt="" v-if="scope.row.scoreCompare>0" style="margin-top: -2px;">
+                                <img src="./images/icon/icon_sort_desc.png" alt="" v-else>
+                                {{Math.abs(scope.row.scoreCompare)}}
+                            </template>
+                        </p>
+                    </template>
+                </i-table>
+            </div>
+            <div class="item-col-chart-box mb-20">
+                <div class="cf echarts-title">
+                    <span class="fl title-chart">科学研究</span> 
+                </div>
+                <Row class="mt-20">
+                    <i-col span="16">
+                        <div id="socialResearch" style="height: 240px;"></div>
+                    </i-col>
+                    <i-col span="8">
+                        <i-table class="bh-table" border stripe :columns="columns" :data="commonData"></i-table>
+                    </i-col>
+                </Row>
+            </div>
+            <div class="item-col-chart-box mb-20">
+                <div class="cf echarts-title">
+                    <span class="fl title-chart">人才培养</span> 
+                </div>
+                <Row class="mt-20">
+                    <i-col span="16">
+                        <div id="people" style="height: 240px;"></div>
+                    </i-col>
+                    <i-col span="8">
+                        <i-table class="bh-table" border stripe :columns="columns" :data="commonData"></i-table>
+                    </i-col>
+                </Row>
+            </div>
+            <div class="item-col-chart-box mb-20">
+                <div class="cf echarts-title">
+                    <span class="fl title-chart">师资队伍分析</span> 
+                </div>
+                <Row class="mt-20">
+                    <i-col span="16">
+                        <div id="teacher" style="height: 240px;"></div>
+                    </i-col>
+                    <i-col span="8">
+                        <i-table class="bh-table" border stripe :columns="columns" :data="commonData"></i-table>
+                    </i-col>
+                </Row>
+            </div>
+            <div class="item-col-chart-box mb-20">
+                <div class="cf echarts-title">
+                    <span class="fl title-chart">支撑平台</span> 
+                </div>
+                <Row class="mt-20">
+                    <i-col span="16">
+                        <div id="platform" style="height: 240px;"></div>
+                    </i-col>
+                    <i-col span="8">
+                        <i-table class="bh-table" border stripe :columns="columns" :data="commonData"></i-table>
+                    </i-col>
+                </Row>
+            </div>
+            <div class="item-col-chart-box mb-20">
+                <div class="cf echarts-title">
+                    <span class="fl title-chart">社会服务</span> 
+                </div>
+                <Row class="mt-20">
+                    <i-col span="16">
+                        <div id="social" style="height: 240px;"></div>
+                    </i-col>
+                    <i-col span="8">
+                        <i-table class="bh-table"  border stripe :columns="columns" :data="commonData"></i-table>
+                    </i-col>
+                </Row>
+            </div>
+        </div>
+        <!--main-container end-->
+    </div>
+    <script src="./core/jquery/1.12.4/jquery.min.js"></script>
+    <script src="./core/echarts/5.0/echarts.min.js"></script>
+    <script src="./core/vue/2.6.10/vue.js"></script>
+    <script src="./core/iview/4.5.0/iview.min.js" charset="utf-8"></script>
+    <script src="./js/echarts.js"></script>
+    <script src="./js/subject_sort.js"></script>
+</body>
+
+</html>
